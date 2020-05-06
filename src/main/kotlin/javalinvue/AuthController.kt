@@ -87,7 +87,7 @@ object AuthController {
     fun register(ctx: Context) {
         val username = ctx.formParam("username", null)
         val password = ctx.formParam("password", null)
-        if (username == null || password == null) {
+        if (username == null || password == null || username.contains(':')) {
             ctx.status(400)
             ctx.json("Bad Request")
             return
