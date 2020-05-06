@@ -17,8 +17,11 @@ fun main() {
         config.accessManager { handler, ctx, permittedRoles ->
             when {
                 AppRole.ANYONE in permittedRoles -> handler.handle(ctx)
-                AppRole.LOGGED_IN in permittedRoles && currentUser(ctx) != null -> handler.handle(ctx)
-                else -> ctx.status(401).header(Header.WWW_AUTHENTICATE, "Basic")
+                AppRole.LOGGED_IN in permittedRoles && AuthController.verify(ctx) != null -> handler.handle(ctx)
+                else -> {
+                    ctx.status(401)
+                    ctx.json("Unauthorized")
+                }
             }
         }
         JavalinVue.stateFunction = { ctx -> mapOf("currentUser" to currentUser(ctx)) }
@@ -31,6 +34,12 @@ fun main() {
 
     app.get("/api/users", UserController::getAll, roles(AppRole.ANYONE))
     app.get("/api/users/:user-id", UserController::getOne, roles(AppRole.LOGGED_IN))
+
+    app.post("/api/auth/register", AuthController::register, roles(AppRole.ANYONE))
+    app.post("/api/auth/login", AuthController::login, roles(AppRole.ANYONE))
+    app.get("/api/auth/verify", {ctx ->
+        ctx.json(AuthController.verify(ctx)!!)
+    }, roles(AppRole.LOGGED_IN))
 
 }
 
