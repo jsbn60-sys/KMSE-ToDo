@@ -21,8 +21,8 @@
                                                             <input v-model="title" type="text" class="form-control" id="title" placeholder="insert your username">
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="deadline">Deadline</label>
-                                                            <input v-model="deadline" type="date" class="form-control" id="deadline" placeholder="insert your password">
+                                                            <label for="planed">Deadline</label>
+                                                            <input v-model="planed" type="date" class="form-control" id="planed" placeholder="insert your password">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -47,17 +47,19 @@
         data: () => ({
             token: localStorage.getItem("token"),
             title: "",
-            date: ""
+            priority: "high"
+            planed: "Tue, 19 Jan 2038 03:14:07 GMT"
         }),
         methods: {
             newTask() {
                 let token = this.token;
                 let title = this.title;
-                let date = this.date;
+                let priority = this.priority;
+                let planed = this.planed;
                 fetch("/api/me/tasks?token=" + token, {
                     method: "POST",
                     headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                    body: "title=" + title
+                    body: "title=" + title + "priority=" + priority + "planed=" + planed
                 })
                     .then(async res => { if(res.status === 200) location.pathname = "/tasks" })
                     .catch(() => alert("Error while creating new task"));

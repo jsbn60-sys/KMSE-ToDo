@@ -16,14 +16,13 @@
                                             <div class="widget-content p-0">
                                                 <div class="widget-content-wrapper">
                                                     <div class="widget-content-left mr-2">
-                                                        <div class="custom-checkbox custom-control"> <input class="custom-control-input" id="exampleCustomCheckbox12" type="checkbox"><label class="custom-control-label" for="exampleCustomCheckbox12">&nbsp;</label> </div>
+                                                        <div class="custom-checkbox custom-control"> <input class="custom-control-input" id={{task.id}} type="checkbox"><label class="custom-control-label" for={{task.id}}>&nbsp;</label> </div>
                                                     </div>
                                                     <div class="widget-content-left">
                                                         <div class="widget-heading">{{task.title}} <div class="badge badge-danger ml-2">{{task.priority}}</div>
                                                         </div>
                                                         <div class="widget-subheading"><i>Deadline: {{task.planed}}</i></div>
                                                     </div>
-                                                    <div class="widget-content-right"> <button class="border-0 btn-transition btn btn-outline-success"> <i class="fa fa-check"></i></button> <button class="border-0 btn-transition btn btn-outline-danger"> <i class="fa fa-trash"></i> </button> </div>
                                                 </div>
                                             </div>
                                         </li>
