@@ -47,7 +47,7 @@
         data: () => ({
             token: localStorage.getItem("token"),
             title: "",
-            priority: "high"
+            priority: "high",
             planed: "Tue, 19 Jan 2038 03:14:07 GMT"
         }),
         methods: {
