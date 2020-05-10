@@ -9,6 +9,8 @@ object Tasks: IntIdTable() {
     val title = varchar("title", 64)
     val done = bool("done")
     val owner = reference("owner", Users)
+    val priority = varchar("priority", 6)
+    val planed = long("planedDate")
 }
 
 class Task(id: EntityID<Int>) : IntEntity(id) {
@@ -17,4 +19,6 @@ class Task(id: EntityID<Int>) : IntEntity(id) {
     var title by Tasks.title
     var done  by Tasks.done
     var owner by User referencedOn Tasks.owner
+    var priority by Tasks.priority
+    var planed by Tasks.planed
 }
