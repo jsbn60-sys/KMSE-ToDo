@@ -1,8 +1,7 @@
 <template id="app-frame">
     <div class="app-frame">
         <header>
-            <span>JavalinVue demo app</span>
-            <span v-if="$javalin.state.currentUser">Current user: '{{$javalin.state.currentUser}}'</span>
+            <span>KMS Tasks app</span>
         </header>
         <slot></slot>
     </div>
@@ -21,5 +20,6 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        margin-bottom: 20px;
     }
 </style>

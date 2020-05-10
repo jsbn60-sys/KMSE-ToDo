@@ -4,7 +4,7 @@
             <div class="col-md-8">
                 <div class="card-hover-shadow-2x mb-3 card">
                     <div class="card-header-tab card-header">
-                        <div class="card-header-title font-size-lg text-capitalize font-weight-normal"><i class="fa fa-tasks"></i>&nbsp;Task Lists</div>
+                        <div class="card-header-title font-size-lg text-capitalize font-weight-normal"><i class="fa fa-tasks"></i>&nbsp;Your task list, {{username}}!</div>
                     </div>
                     <div class="scroll-area-sm">
                         <perfect-scrollbar class="ps-show-limits">
@@ -19,9 +19,9 @@
                                                         <div class="custom-checkbox custom-control"> <input class="custom-control-input" id="exampleCustomCheckbox12" type="checkbox"><label class="custom-control-label" for="exampleCustomCheckbox12">&nbsp;</label> </div>
                                                     </div>
                                                     <div class="widget-content-left">
-                                                        <div class="widget-heading">{{task.title}} <div class="badge badge-danger ml-2">Rejected</div>
+                                                        <div class="widget-heading">{{task.title}} <div class="badge badge-danger ml-2">{{task.priority}}</div>
                                                         </div>
-                                                        <div class="widget-subheading"><i>by {{username}}</i></div>
+                                                        <div class="widget-subheading"><i>Deadline: {{task.planed}}</i></div>
                                                     </div>
                                                     <div class="widget-content-right"> <button class="border-0 btn-transition btn btn-outline-success"> <i class="fa fa-check"></i></button> <button class="border-0 btn-transition btn btn-outline-danger"> <i class="fa fa-trash"></i> </button> </div>
                                                 </div>
@@ -32,7 +32,7 @@
                             </div>
                         </perfect-scrollbar>
                     </div>
-                    <div class="d-block text-right card-footer"><button class="mr-2 btn btn-link btn-sm">Cancel</button><button class="btn btn-primary">Add Task</button></div>
+                    <div class="d-block text-right card-footer"><button class="mr-2 btn btn-link btn-sm">Logout</button><a href="new-task" class="btn btn-primary">Add Task</a></div>
                 </div>
             </div>
         </div>

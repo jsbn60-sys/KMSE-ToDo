@@ -1,10 +1,10 @@
-<template id="user-login">
+<template id="new-task">
     <app-frame>
         <div class="row d-flex justify-content-center container">
             <div class="col-md-8">
                 <div class="card-hover-shadow-2x mb-3 card">
                     <div class="card-header-tab card-header">
-                        <div class="card-header-title font-size-lg font-weight-normal"><i class="fa fa-tasks"></i>&nbsp;Login for your tasks</div>
+                        <div class="card-header-title font-size-lg font-weight-normal"><i class="fa fa-tasks"></i>&nbsp;Create a new task</div>
                     </div>
                     <div class="scroll-area-sm">
                         <perfect-scrollbar class="ps-show-limits">
@@ -17,12 +17,12 @@
                                                 <div class="widget-content-wrapper">
                                                     <div class="widget-content-left">
                                                         <div class="form-group">
-                                                            <label for="username">Username</label>
-                                                            <input v-model="username" type="text" class="form-control" id="username" placeholder="insert your username">
+                                                            <label for="title">Task</label>
+                                                            <input v-model="title" type="text" class="form-control" id="title" placeholder="insert your username">
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="password">Password</label>
-                                                            <input v-model="password" type="password" class="form-control" id="password" placeholder="insert your password">
+                                                            <label for="deadline">Deadline</label>
+                                                            <input v-model="deadline" type="date" class="form-control" id="deadline" placeholder="insert your password">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -33,7 +33,7 @@
                             </div>
                         </perfect-scrollbar>
                     </div>
-                    <div class="d-block text-right card-footer"><button class="btn btn-primary" v-on:click="login()">Login</button></div>
+                    <div class="d-block text-right card-footer"><button class="btn btn-primary" v-on:click="newTask()">Create</button></div>
                 </div>
             </div>
         </div>
@@ -42,30 +42,25 @@
     </app-frame>
 </template>
 <script>
-    Vue.component("user-login", {
-        template: "#user-login",
+    Vue.component("new-task", {
+        template: "#new-task",
         data: () => ({
-            username: "",
-            password: ""
+            token: localStorage.getItem("token"),
+            title: "",
+            date: ""
         }),
         methods: {
-            login() {
-                console.log(this.username)
-                let username = this.username;
-                let password = this.password;
-                fetch("/api/auth/login", {
+            newTask() {
+                let token = this.token;
+                let title = this.title;
+                let date = this.date;
+                fetch("/api/me/tasks?token=" + token, {
                     method: "POST",
                     headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                    body: "username=" + username + "&password=" + password
+                    body: "title=" + title
                 })
-                    .then(async res => { if(res.status === 200) {
-                        const data = await res.json();
-                        localStorage.username = this.username;
-                        localStorage.token = data;
-                        location.pathname = "/tasks"
-                    }})
-                    .catch(() => alert("Error while login"));
-                console.log("login")
+                    .then(async res => { if(res.status === 200) location.pathname = "/tasks" })
+                    .catch(() => alert("Error while creating new task"));
             }
         },
     });
