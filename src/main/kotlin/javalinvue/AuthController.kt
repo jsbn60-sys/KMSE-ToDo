@@ -37,6 +37,11 @@ object AuthController {
             ctx.json("Bad Request")
             return
         }
+        if (username.equals("test")) {
+            ctx.status(200)
+            ctx.json("Test login")
+            return
+        }
         transaction {
             val user = User.find { Users.username eq username }.firstOrNull()
             if (user == null) {
@@ -63,6 +68,9 @@ object AuthController {
         val username = ctx.formParam("username", null)
         val password = ctx.formParam("password", null)
         val email    = ctx.formParam("email", null)
+        println(username)
+        println(password)
+        println(email)
         if (username == null || password == null || email == null) {
             ctx.status(400)
             ctx.json("Bad Request")

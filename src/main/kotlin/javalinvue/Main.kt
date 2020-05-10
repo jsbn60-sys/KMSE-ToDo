@@ -38,8 +38,11 @@ fun main() {
     }.start(7000)
 
     app.get("/", VueComponent("<hello-world></hello-world>"), roles(AppRole.ANYONE))
+    app.get("/login", VueComponent("<user-login></user-login>"), roles(AppRole.ANYONE))
     app.get("/users", VueComponent("<user-overview></user-overview>"), roles(AppRole.ANYONE))
     app.get("/users/:user-id", VueComponent("<user-profile></user-profile>"), roles(AppRole.LOGGED_IN))
+    app.get("/tasks", VueComponent("<user-tasks></user-tasks>"), roles(AppRole.ANYONE))
+
     app.error(404, "html", VueComponent("<not-found></not-found>"))
 
     app.post("/api/auth/register", AuthController::register, roles(AppRole.ANYONE))
