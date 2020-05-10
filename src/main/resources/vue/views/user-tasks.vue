@@ -31,7 +31,7 @@
                             </div>
                         </perfect-scrollbar>
                     </div>
-                    <div class="d-block text-right card-footer"><button class="mr-2 btn btn-link btn-sm">Logout</button><a href="new-task" class="btn btn-primary">Add Task</a></div>
+                    <div class="d-block text-right card-footer"><a href="login" class="mr-2 btn btn-link btn-sm">Logout</a><a href="new-task" class="btn btn-primary">Add Task</a></div>
                 </div>
             </div>
         </div>
