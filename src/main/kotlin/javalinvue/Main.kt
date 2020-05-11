@@ -49,6 +49,7 @@ fun main() {
     app.post("/api/auth/login", AuthController::login, roles(AppRole.ANYONE))
     app.get("/api/me", UserController::getUser, roles(AppRole.LOGGED_IN))
     app.get("/api/me/tasks", UserController::myTasks, roles(AppRole.LOGGED_IN))
+    app.get("/api/me/categories", UserController::myCategories, roles(AppRole.LOGGED_IN))
     app.post("/api/me/tasks", UserController::addToMyTasks, roles(AppRole.LOGGED_IN))
     app.put("/api/me/tasks/:id", UserController::markMyTaskDone, roles(AppRole.LOGGED_IN))
 }

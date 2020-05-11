@@ -19,4 +19,6 @@ class User(id: EntityID<Int>) : IntEntity(id) {
     var password by Users.password
 
     val tasks by Task referrersOn Tasks.owner
+    val categories by Category referrersOn Tasks.owner
+
 }

@@ -27,11 +27,17 @@
                                                         <div class="form-group">
                                                             <label for="priority">Priority</label>
                                                             <select v-model="priority" class="form-control" id="priority">
-                                                              <option>low</option>
-                                                              <option>medium</option>
-                                                              <option>high</option>
+                                                                <option>low</option>
+                                                                <option>medium</option>
+                                                                <option>high</option>
                                                             </select>
-                                                          </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="category">Category</label>
+                                                            <select v-model="category" v-for="category in categories" class="form-control" id="category">
+                                                                <option>{{category.title}}</option>
+                                                            </select>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -56,21 +62,40 @@
             token: localStorage.getItem("token"),
             title: "",
             priority: "",
-            planed: ""
+            planed: "",
+            category: "",
+            categories: []
         }),
+        created() {
+                    const token = localStorage.getItem("token");
+                    fetch("/api/me/categories?token=" + token, {
+                        method: "GET",
+                    })
+                        .then( async res => {
+                            if(res.status === 200) {
+                                let resdata = await res.json();
+                                console.log(resdata);
+                                this.categories = resdata;
+                                console.log(this.categories)
+                            }
+                        })
+                        .catch(() => alert("Error while fetching categories"));
+                },
         methods: {
             newTask() {
                 let token = this.token;
                 let title = this.title;
                 let priority = this.priority;
                 let planed = this.planed;
+                let category = this.category;
                 console.log(title);
                 console.log(priority);
                 console.log(planed);
+                console.log(category);
                 fetch("/api/me/tasks?token=" + token, {
                     method: "POST",
                     headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                    body: "title=" + title + "&priority=" + priority + "&planed=" + planed
+                    body: "title=" + title + "&priority=" + priority + "&planed=" + planed + "&category=" + category
                 })
                     .then(async res => { if(res.status === 200) location.pathname = "/tasks" })
                     .catch(() => alert("Error while creating new task"));

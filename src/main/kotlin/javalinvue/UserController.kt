@@ -15,6 +15,18 @@ object UserController {
             "email" to user.email
         ))
     }
+    fun myCategories(ctx: Context) {
+        val user = ctx.attribute<User>("user")!!
+        val categories = transaction {
+            user.categories.map { category ->
+                mapOf(
+                    "id" to category.id.toString(),
+                    "title" to category.title
+                )
+            }
+        }
+        ctx.json(categories)
+    }
     private val dateFormat = SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH)
     fun myTasks(ctx: Context) {
         val user = ctx.attribute<User>("user")!!
@@ -36,7 +48,8 @@ object UserController {
         val title = ctx.formParam("title")
         val priority = ctx.formParam("priority")
         val planed = ctx.formParam("planed")
-        if (title == null || priority == null || !arrayOf("low", "medium", "high").contains(priority) || planed == null) {
+        val category = ctx.formParam("category")
+        if (title == null || priority == null || !arrayOf("low", "medium", "high").contains(priority) || planed == null || category == null) {
             ctx.status(400)
             ctx.json("Bad Request")
             return
@@ -46,6 +59,7 @@ object UserController {
                 this.title = title
                 this.priority = priority
                 this.planed = dateFormat.parse(planed).time
+                //this.category = category
                 this.done = false
                 this.owner = user
             }
