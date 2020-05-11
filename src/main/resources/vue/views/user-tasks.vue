@@ -2,9 +2,9 @@
     <app-frame>
         <div class="row d-flex justify-content-center container">
             <div class="col-md-8">
-                <div class="card-hover-shadow-2x mb-3 card">
-                    <div class="card-header-tab card-header">
-                        <div class="card-header-title font-size-lg text-capitalize font-weight-normal"><i class="fa fa-tasks"></i>&nbsp;Your task list, {{username}}!</div>
+                <div class="card-hover-shadow-2x mb-3 card border-info">
+                    <div class="card-header-tab card-header text-center">
+                        <div class="card-header-title font-size-lg text-capitalize font-weight-normal"><i class="fa fa-tasks"></i><h5 class="display-5"> Your Tasks, {{username}}!</h5></div>
                     </div>
                     <div class="scroll-area-sm">
                         <perfect-scrollbar class="ps-show-limits">
@@ -31,7 +31,7 @@
                             </div>
                         </perfect-scrollbar>
                     </div>
-                    <div class="d-block text-right card-footer"><a href="login" class="mr-2 btn btn-link btn-sm">Logout</a><a href="new-task" class="btn btn-primary">Add Task</a></div>
+                    <div class="d-block text-center card-footer"><a href="login" class="mr-2 btn btn-link btn-sm">Logout</a><a href="new-task" class="btn btn-info">Add Task</a></div>
                 </div>
             </div>
         </div>

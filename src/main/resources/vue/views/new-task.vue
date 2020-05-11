@@ -2,27 +2,27 @@
     <app-frame>
         <div class="row d-flex justify-content-center container">
             <div class="col-md-8">
-                <div class="card-hover-shadow-2x mb-3 card">
-                    <div class="card-header-tab card-header">
-                        <div class="card-header-title font-size-lg font-weight-normal"><i class="fa fa-tasks"></i>&nbsp;Create a new task</div>
+                <div class="card-hover-shadow-2x mb-3 card border-info">
+                    <div class="card-header-tab card-header text-center">
+                        <div class="card-header-title font-size-lg font-weight-normal"><i class="fa fa-tasks"></i><h5 class="display-5">Create a new Task</h5></div>
                     </div>
-                    <div class="scroll-area-sm">
+                    <div class="scroll-area-sm bg-info">
                         <perfect-scrollbar class="ps-show-limits">
                             <div style="position: static;" class="ps ps--active-y">
                                 <div class="ps-content">
                                     <ul class=" list-group list-group-flush">
                                         <li class="list-group-item">
-                                            <div class="todo-indicator bg-warning"></div>
+                                            <div class="todo-indicator"></div>
                                             <div class="widget-content p-0">
                                                 <div class="widget-content-wrapper">
                                                     <div class="widget-content-left">
                                                         <div class="form-group">
-                                                            <label for="title">Task</label>
-                                                            <input v-model="title" type="text" class="form-control" id="title" placeholder="insert your username">
+                                                            <label for="title">Title</label>
+                                                            <input v-model="title" type="text" class="form-control" id="title" placeholder="Insert the title of your task here">
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="planed">Deadline</label>
-                                                            <input v-model="planed" type="datetime" class="form-control" id="planed" placeholder="insert your password">
+                                                            <input v-model="planed" type="datetime" class="form-control" id="planed" placeholder="Insert a deadline">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -33,7 +33,7 @@
                             </div>
                         </perfect-scrollbar>
                     </div>
-                    <div class="d-block text-right card-footer"><button class="btn btn-primary" v-on:click="newTask()">Create</button></div>
+                    <div class="d-block text-center card-footer"><button class="btn btn-info" v-on:click="newTask()">Create</button></div>
                 </div>
             </div>
         </div>

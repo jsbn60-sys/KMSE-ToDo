@@ -37,7 +37,7 @@ fun main() {
         }
     }.start(7000)
 
-    app.get("/", VueComponent("<hello-world></hello-world>"), roles(AppRole.ANYONE))
+    app.get("/", VueComponent("<user-login></user-login>"), roles(AppRole.ANYONE))
     app.get("/login", VueComponent("<user-login></user-login>"), roles(AppRole.ANYONE))
     app.get("/tasks", VueComponent("<user-tasks></user-tasks>"), roles(AppRole.ANYONE))
     app.get("/new-task", VueComponent("<new-task></new-task>"), roles(AppRole.ANYONE))

@@ -2,9 +2,9 @@
     <app-frame>
         <div class="row d-flex justify-content-center container">
             <div class="col-md-8">
-                <div class="card-hover-shadow-2x mb-3 card">
-                    <div class="card-header-tab card-header">
-                        <div class="card-header-title font-size-lg font-weight-normal"><i class="fa fa-tasks"></i>&nbsp;Login for your tasks</div>
+                <div class="card-hover-shadow-2x mb-3 card border-info">
+                    <div class="card-header-tab card-header text-center">
+                        <div class="card-header-title font-size-lg font-weight-normal"><i class="fa fa-tasks"></i><h5 class="display-5">Login for your tasks</h5></div>
                     </div>
                     <div class="scroll-area-sm">
                         <perfect-scrollbar class="ps-show-limits">
@@ -33,7 +33,7 @@
                             </div>
                         </perfect-scrollbar>
                     </div>
-                    <div class="d-block text-right card-footer"><button class="btn btn-primary" v-on:click="login()">Login</button></div>
+                    <div class="d-block text-center card-footer"><button class="btn btn-info" v-on:click="login()">Login</button></div>
                 </div>
             </div>
         </div>
