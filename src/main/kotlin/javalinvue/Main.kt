@@ -16,7 +16,7 @@ fun main() {
     Database.connect("jdbc:h2:./db", driver = "org.h2.Driver");
 
     transaction {
-        SchemaUtils.create(Users, Tasks)
+        SchemaUtils.create(Users, Tasks, Categories)
     }
 
     val app = Javalin.create { config ->

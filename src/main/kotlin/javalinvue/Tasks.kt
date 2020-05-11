@@ -23,5 +23,4 @@ class Task(id: EntityID<Int>) : IntEntity(id) {
     var priority by Tasks.priority
     var planed by Tasks.planed
     var category by Category referencedOn Tasks.category
-
 }

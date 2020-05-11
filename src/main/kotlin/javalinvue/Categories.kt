@@ -11,8 +11,10 @@ object Categories: IntIdTable() {
 }
 
 class Category(id: EntityID<Int>) : IntEntity(id) {
-    companion object : IntEntityClass<Task>(Tasks)
+    companion object : IntEntityClass<Category>(Categories)
 
     var title by Categories.title
     var owner by User referencedOn Categories.owner
+
+    val tasks by Task referrersOn Tasks.category
 }
