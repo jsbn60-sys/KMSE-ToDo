@@ -15,7 +15,7 @@ object UserController {
             "email" to user.email
         ))
     }
-    private val dateFormat = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.ENGLISH)
+    private val dateFormat = SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH)
     fun myTasks(ctx: Context) {
         val user = ctx.attribute<User>("user")!!
         val tasks = transaction {

@@ -22,8 +22,16 @@
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="planed">Deadline</label>
-                                                            <input v-model="planed" type="datetime" class="form-control" id="planed" placeholder="Insert a deadline">
+                                                            <input v-model="planed" type="date" class="form-control" id="planed" placeholder="Insert a deadline">
                                                         </div>
+                                                        <div class="form-group">
+                                                            <label for="priority">Priority</label>
+                                                            <select v-model="priority" class="form-control" id="priority">
+                                                              <option>low</option>
+                                                              <option>medium</option>
+                                                              <option>high</option>
+                                                            </select>
+                                                          </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -47,7 +55,7 @@
         data: () => ({
             token: localStorage.getItem("token"),
             title: "",
-            priority: "high",
+            priority: "",
             planed: ""
         }),
         methods: {
@@ -55,7 +63,7 @@
                 let token = this.token;
                 let title = this.title;
                 let priority = this.priority;
-                let planed = "Tue, 19 Jan 2038 03:14:07 GMT";
+                let planed = this.planed;
                 console.log(title);
                 console.log(priority);
                 console.log(planed);
