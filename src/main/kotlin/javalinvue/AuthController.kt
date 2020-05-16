@@ -68,9 +68,6 @@ object AuthController {
         val username = ctx.formParam("username", null)
         val password = ctx.formParam("password", null)
         val email    = ctx.formParam("email", null)
-        println(username)
-        println(password)
-        println(email)
         if (username == null || password == null || email == null) {
             ctx.status(400)
             ctx.json("Bad Request")

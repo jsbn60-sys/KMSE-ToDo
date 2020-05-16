@@ -2,6 +2,7 @@ package javalinvue
 
 import io.javalin.http.Context
 import org.jetbrains.exposed.sql.transactions.transaction
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -21,11 +22,27 @@ object UserController {
             user.categories.map { category ->
                 mapOf(
                     "id" to category.id.toString(),
-                    "title" to category.title
+                    "name" to category.name
                 )
             }
         }
         ctx.json(categories)
+    }
+    fun newCategory(ctx: Context) {
+        val user = ctx.attribute<User>("user")!!
+        val name = ctx.formParam("name")
+        if (name == null) {
+            ctx.status(400)
+            ctx.json("Bad Request")
+            return
+        }
+        transaction {
+            Category.new {
+                this.name = name
+                this.owner = user
+            }
+        }
+        ctx.json("Ok")
     }
     private val dateFormat = SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH)
     fun myTasks(ctx: Context) {
@@ -37,7 +54,11 @@ object UserController {
                     "title" to task.title,
                     "done" to task.done,
                     "priority" to task.priority,
-                    "planed" to dateFormat.format(Date(task.planed))
+                    "planed" to dateFormat.format(Date(task.planed)),
+                    "category" to mapOf(
+                            "id" to task.category.id.toString(),
+                            "name" to task.category.name
+                    )
                 )
             }
         }
@@ -48,23 +69,31 @@ object UserController {
         val title = ctx.formParam("title")
         val priority = ctx.formParam("priority")
         val planed = ctx.formParam("planed")
-        val category = ctx.formParam("category")
-        if (title == null || priority == null || !arrayOf("low", "medium", "high").contains(priority) || planed == null || category == null) {
+        val planedParsed = try {dateFormat.parse(planed)} catch (_: ParseException) {null}
+        val categoryID = ctx.formParam("category")
+        if (title == null || priority == null || !arrayOf("low", "medium", "high").contains(priority)
+                || planed == null || planedParsed == null || categoryID == null) {
             ctx.status(400)
             ctx.json("Bad Request")
             return
         }
         transaction {
+            val category = Category.findById(categoryID.toInt())
+            if (category == null || category.owner.id != user.id) {
+                ctx.status(401)
+                ctx.json("Bad Request")
+                return@transaction
+            }
             Task.new {
                 this.title = title
                 this.priority = priority
-                this.planed = dateFormat.parse(planed).time
-                //this.category = category
+                this.planed = planedParsed.time
+                this.category = category
                 this.done = false
                 this.owner = user
             }
+            ctx.json("Ok")
         }
-        ctx.json("Ok")
     }
     fun markMyTaskDone(ctx: Context) {
         val user = ctx.attribute<User>("user")!!
