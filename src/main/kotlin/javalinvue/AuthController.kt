@@ -81,6 +81,7 @@ object AuthController {
                 this.email = email
                 this.password = hashed
             }
+            addDefaults(user)
             val token = createToken(user.id.value)
             ctx.json(token)
         }
@@ -92,5 +93,20 @@ object AuthController {
                 .withSubject(userID.toString())
                 .withExpiresAt(expiresAt)
                 .sign(jwtAlgo)
+    }
+
+    private fun addDefaults(user: User) {
+        val defaultCategory = Category.new {
+            this.name = "Default"
+            this.owner = user
+        }
+        Task.new {
+            this.title = "Add more tasks"
+            this.category = defaultCategory
+            this.priority = "medium"
+            this.planed = Date().time
+            this.done = false
+            this.owner = user
+        }
     }
 }
