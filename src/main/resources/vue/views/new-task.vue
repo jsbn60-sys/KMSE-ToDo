@@ -33,9 +33,9 @@
                                                             </select>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="category">Category</label>
-                                                            <select v-model="category" v-for="category in categories" class="form-control" id="category">
-                                                                <option>{{category.title}}</option>
+                                                            <label for="selected_category">Category</label>
+                                                            <select v-model="selected_category" class="form-control" id="selected_category">
+                                                                <option v-for="category in categories" :value="category.id">{{category.name}}</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -63,6 +63,7 @@
             title: "",
             priority: "",
             planed: "",
+            selected_category: "",
             category: "",
             categories: []
         }),
@@ -87,15 +88,15 @@
                 let title = this.title;
                 let priority = this.priority;
                 let planed = this.planed;
-                let category = this.category;
+                let selected_category = this.selected_category;
                 console.log(title);
                 console.log(priority);
                 console.log(planed);
-                console.log(category);
+                console.log(selected_category);
                 fetch("/api/me/tasks?token=" + token, {
                     method: "POST",
                     headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                    body: "title=" + title + "&priority=" + priority + "&planed=" + planed + "&category=" + category
+                    body: "title=" + title + "&priority=" + priority + "&planed=" + planed + "&category=" + selected_category
                 })
                     .then(async res => { if(res.status === 200) location.pathname = "/tasks" })
                     .catch(() => alert("Error while creating new task"));

@@ -1,10 +1,10 @@
-<template id="user-login">
+<template id="user-register">
     <app-frame>
         <div class="row d-flex justify-content-center container">
             <div class="col-md-8">
                 <div class="card-hover-shadow-2x mb-3 card border-info">
                     <div class="card-header-tab card-header text-center">
-                        <div class="card-header-title font-size-lg font-weight-normal"><i class="fa fa-tasks"></i><h5 class="display-5">Login for your tasks</h5></div>
+                        <div class="card-header-title font-size-lg font-weight-normal"><i class="fa fa-tasks"></i><h5 class="display-5">Register for your lists</h5></div>
                     </div>
                     <div class="scroll-area-sm">
                         <perfect-scrollbar class="ps-show-limits">
@@ -21,6 +21,10 @@
                                                             <input v-model="username" type="text" class="form-control" id="username" placeholder="insert your username">
                                                         </div>
                                                         <div class="form-group">
+                                                            <label for="password">E-Mail</label>
+                                                            <input v-model="email" type="email" class="form-control" id="email" placeholder="insert your email address">
+                                                        </div>
+                                                        <div class="form-group">
                                                             <label for="password">Password</label>
                                                             <input v-model="password" type="password" class="form-control" id="password" placeholder="insert your password">
                                                         </div>
@@ -33,7 +37,7 @@
                             </div>
                         </perfect-scrollbar>
                     </div>
-                    <div class="d-block text-center card-footer"><button class="btn btn-info" v-on:click="login()">Login</button> <a href="/register" class="btn btn-secondary">Go to registration</a></div>
+                    <div class="d-block text-center card-footer"><button class="btn btn-info" v-on:click="register()">Register</button></div>
                 </div>
             </div>
         </div>
@@ -42,30 +46,28 @@
     </app-frame>
 </template>
 <script>
-    Vue.component("user-login", {
-        template: "#user-login",
+    Vue.component("user-register", {
+        template: "#user-register",
         data: () => ({
             username: "",
+            email: "",
             password: ""
         }),
         methods: {
-            login() {
-                console.log(this.username)
+            register() {
                 let username = this.username;
+                let email = this.email;
                 let password = this.password;
-                fetch("/api/auth/login", {
+                fetch("/api/auth/register", {
                     method: "POST",
                     headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                    body: "username=" + username + "&password=" + password
+                    body: "username=" + username + "&email=" + email + "&password=" + password
                 })
                     .then(async res => { if(res.status === 200) {
                         const data = await res.json();
-                        localStorage.username = this.username;
-                        localStorage.token = data;
-                        location.pathname = "/tasks"
+                        location.pathname = "/login"
                     }})
-                    .catch(() => alert("Error while login"));
-                console.log("login")
+                    .catch(() => alert("Error while register"));
             }
         },
     });

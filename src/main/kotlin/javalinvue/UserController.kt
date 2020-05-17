@@ -42,6 +42,7 @@ object UserController {
                 this.owner = user
             }
         }
+        ctx.status(200)
         ctx.json("Ok")
     }
     private val dateFormat = SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH)
