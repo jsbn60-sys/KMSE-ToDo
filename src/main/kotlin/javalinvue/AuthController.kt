@@ -6,12 +6,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException
 import io.javalin.http.Context
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.mindrot.jbcrypt.BCrypt
-import java.io.File
-import java.nio.file.Files
-import java.nio.file.Paths
-import java.nio.file.StandardOpenOption
 import java.util.*
-import java.util.concurrent.ConcurrentHashMap
 
 object AuthController {
     private val jwtAlgo = Algorithm.HMAC256("secret")
@@ -55,11 +50,7 @@ object AuthController {
                 ctx.json("Unauthorized")
                 return@transaction
             }
-            val dateInOneDay = Date(Date().time + 24 * 60 * 60 * 1000)
-            val token = JWT.create()
-                    .withSubject(user.id.toString())
-                    .withExpiresAt(dateInOneDay)
-                    .sign(jwtAlgo)
+            val token = createToken(user.id.value)
             ctx.json(token)
         }
     }
@@ -74,20 +65,28 @@ object AuthController {
             return
         }
         transaction {
-            val user = User.find { Users.username eq username }.firstOrNull()
-            if (user != null) {
+            val existingUser = User.find { Users.username eq username }.firstOrNull()
+            if (existingUser != null) {
                 ctx.status(409)
                 ctx.json("Conflict")
                 return@transaction
             }
             val hashed = BCrypt.hashpw(password, BCrypt.gensalt())
-            User.new {
+            val user = User.new {
                 this.username = username
                 this.email = email
                 this.password = hashed
             }
-            ctx.status(200)
-            ctx.json("Ok")
+            val token = createToken(user.id.value)
+            ctx.json(token)
         }
+    }
+
+    private val dateInOneDay = Date(Date().time + 24 * 60 * 60 * 1000)
+    private fun createToken(userID: Int, expiresAt: Date = dateInOneDay): String {
+        return JWT.create()
+                .withSubject(userID.toString())
+                .withExpiresAt(expiresAt)
+                .sign(jwtAlgo)
     }
 }
