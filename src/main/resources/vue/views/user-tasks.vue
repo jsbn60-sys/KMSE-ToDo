@@ -15,13 +15,13 @@
                                             <div class="todo-indicator bg-warning"></div>
                                             <div class="widget-content p-0">
                                                 <div class="widget-content-wrapper">
-                                                    <div class="widget-content-left mr-2">
-                                                        <div class="custom-checkbox custom-control"> <input class="custom-control-input" id={{task.id}} type="checkbox"><label class="custom-control-label" for={{task.id}}>&nbsp;</label> </div>
-                                                    </div>
                                                     <div class="widget-content-left">
                                                         <div class="widget-heading">{{task.title}} <div class="badge badge-danger ml-2">{{task.priority}}</div>
                                                         </div>
-                                                        <div class="widget-subheading"><i>Deadline: {{task.planed}}</i></div>
+                                                        <div class="widget-subheading"><i>Deadline: {{task.planed}}</i> Category: {{task.category.name}}</div>
+                                                    </div>
+                                                    <div class="widget-content-right">
+                                                        <input id={{task.id}} type="checkbox" :checked="task.done === true"> <button class="btn btn-info" v-on:click="markAsDone(task.id)">Done!</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -60,6 +60,20 @@
                     }
                 })
                 .catch(() => alert("Error while fetching tasks"));
-        }
+        },
+        methods: {
+            markAsDone(id) {
+                console.log(id)
+                const token = localStorage.getItem("token");
+                fetch("/api/me/tasks/" + id + "?token=" + token, {
+                    method: "PUT"
+                })
+                    .then(async res => { if(res.status === 200) {
+                        const data = await res.json();
+                        location.pathname = "/tasks"
+                    }})
+                    .catch(() => alert("Error while doing"));
+            }
+        },
     });
 </script>
