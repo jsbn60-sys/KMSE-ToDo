@@ -9,7 +9,11 @@ import org.mindrot.jbcrypt.BCrypt
 import java.util.*
 
 object AuthController {
-    private val jwtAlgo = Algorithm.HMAC256("secret")
+    private val jwtSecret = System.getenv("SECRET") ?: {
+        println("WARNING: Using default jwt secret. Use the SECRET environment variable to set custom secret in production.")
+        "secret"
+    }()
+    private val jwtAlgo = Algorithm.HMAC256(jwtSecret)
     private val jwtVerifyer = JWT.require(jwtAlgo).build()
 
     fun verify(ctx: Context): User? {
