@@ -16,12 +16,9 @@
                                             <div class="widget-content p-0">
                                                 <div class="widget-content-wrapper">
                                                     <div class="widget-content-left">
-                                                        <div class="widget-heading">{{task.title}} <div class="badge badge-danger ml-2">{{task.priority}}</div>
+                                                        <div class="widget-heading"><span style="font-size: larger">{{task.title}} </span><div class="badge badge-danger ml-2">{{task.priority}}</div> <input v-bind:id="task.id" type="checkbox" v-on:change="markAsDone(task.id)" :checked="task.done === true">
                                                         </div>
-                                                        <div class="widget-subheading"><i>Deadline: {{task.planed}}</i> Category: {{task.category.name}}</div>
-                                                    </div>
-                                                    <div class="widget-content-right">
-                                                        <input id={{task.id}} type="checkbox" :checked="task.done === true"> <button class="btn btn-info" v-on:click="markAsDone(task.id)">Done!</button>
+                                                        <div class="widget-subheading" style="font-size: smaller">Category: {{task.category.name}} <br>Deadline: {{task.planed}}</div>
                                                     </div>
                                                 </div>
                                             </div>

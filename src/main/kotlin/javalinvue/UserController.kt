@@ -104,7 +104,7 @@ object UserController {
             if (task == null || task.owner.id != user.id) {
                 return@transaction false
             }
-            task.done = true
+            task.done = !task.done
             return@transaction true
         }
         if (!ok) {
