@@ -1,0 +1,18 @@
+stages:
+  - test
+
+variables:
+  MAVEN_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository"
+  MAVEN_CLI_OPTS: "--no-transfer-progress"
+
+test:
+  stage: test
+  image: maven:3.6
+  script:
+    - mvn $MAVEN_CLI_OPTS test surefire-report:report
+  artifacts:
+    paths:
+      - target/site/surefire-report.html
+  cache:
+    paths:
+      - .m2/repository
