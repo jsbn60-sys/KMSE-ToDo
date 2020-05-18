@@ -31,7 +31,8 @@ object AuthController {
     fun login(ctx: Context) {
         val username = ctx.formParam("username")
         val password = ctx.formParam("password")
-        if (username == null || password == null) {
+        val expiresIn = ctx.formParam("expires-in")
+        if (username == null || password == null || (expiresIn != null && expiresIn.toIntOrNull() == null)) {
             ctx.status(400)
             ctx.json("Bad Request")
             return
@@ -54,7 +55,12 @@ object AuthController {
                 ctx.json("Unauthorized")
                 return@transaction
             }
-            val token = createToken(user.id.value)
+            val token = if (expiresIn == null) {
+                createToken(user.id.value)
+            } else {
+                val expires = Date(Date().time + expiresIn.toInt()*1000)
+                createToken(user.id.value, expires)
+            }
             ctx.json(token)
         }
     }
