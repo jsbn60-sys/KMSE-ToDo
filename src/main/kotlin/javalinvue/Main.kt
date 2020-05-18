@@ -55,6 +55,7 @@ fun main() {
     app.post("/api/me/categories", UserController::newCategory, roles(AppRole.LOGGED_IN))
     app.post("/api/me/tasks", UserController::addToMyTasks, roles(AppRole.LOGGED_IN))
     app.put("/api/me/tasks/:id", UserController::markMyTaskDone, roles(AppRole.LOGGED_IN))
+    app.delete("/api/me", UserController::deleteAccount, roles(AppRole.LOGGED_IN))
 }
 
 private fun currentUser(ctx: Context) =

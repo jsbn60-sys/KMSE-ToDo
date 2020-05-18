@@ -1,5 +1,6 @@
 .idea
 javalinvue-example.iml
+db.mv.db
 
 target/
 pom.xml.tag

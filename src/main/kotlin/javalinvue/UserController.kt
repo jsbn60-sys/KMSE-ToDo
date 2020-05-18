@@ -114,4 +114,13 @@ object UserController {
         }
         ctx.json("Ok")
     }
+    fun deleteAccount(ctx: Context) {
+        val user = ctx.attribute<User>("user")!!
+        transaction {
+            user.tasks.forEach(Task::delete)
+            user.categories.forEach(Category::delete)
+            user.delete()
+        }
+        ctx.json("Ok")
+    }
 }
