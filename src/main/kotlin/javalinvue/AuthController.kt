@@ -87,6 +87,7 @@ object AuthController {
                 this.email = email
                 this.password = hashed
             }
+            ctx.status(200)
             addDefaults(user)
             val token = createToken(user.id.value)
             ctx.json(token)

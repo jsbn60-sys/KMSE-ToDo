@@ -1,0 +1,18 @@
+2020-05-21 15:50:34 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USERS" not found; SQL statement:
+SELECT USERS.ID, USERS.USERNAME, USERS.EMAIL, USERS.PASSWORD FROM USERS WHERE USERS.USERNAME = ? [42102-200]
+2020-05-21 15:50:34 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USERS" not found; SQL statement:
+SELECT USERS.ID, USERS.USERNAME, USERS.EMAIL, USERS.PASSWORD FROM USERS WHERE USERS.USERNAME = ? [42102-200]
+2020-05-21 15:50:34 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USERS" not found; SQL statement:
+SELECT USERS.ID, USERS.USERNAME, USERS.EMAIL, USERS.PASSWORD FROM USERS WHERE USERS.USERNAME = ? [42102-200]
+2020-05-21 15:51:42 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USERS" not found; SQL statement:
+SELECT USERS.ID, USERS.USERNAME, USERS.EMAIL, USERS.PASSWORD FROM USERS WHERE USERS.USERNAME = ? [42102-200]
+2020-05-21 15:51:42 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USERS" not found; SQL statement:
+SELECT USERS.ID, USERS.USERNAME, USERS.EMAIL, USERS.PASSWORD FROM USERS WHERE USERS.USERNAME = ? [42102-200]
+2020-05-21 15:51:42 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USERS" not found; SQL statement:
+SELECT USERS.ID, USERS.USERNAME, USERS.EMAIL, USERS.PASSWORD FROM USERS WHERE USERS.USERNAME = ? [42102-200]

@@ -1,6 +1,7 @@
 package javalinvue
 
 import io.javalin.http.Context
+import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.transactions.transaction
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -92,6 +93,7 @@ object UserController {
                 this.category = category
                 this.done = false
                 this.owner = user
+                ctx.status(200)
             }
             ctx.json("Ok")
         }
