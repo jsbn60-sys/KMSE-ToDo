@@ -89,7 +89,8 @@
         </dependency>
     </dependencies>
     <build>
-        <sourceDirectory>../javalinvue-todo-testing2/src/main/kotlin</sourceDirectory>
+        <sourceDirectory>src/main/kotlin</sourceDirectory>
+        <testSourceDirectory>src/test/kotlin</testSourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>
@@ -122,5 +123,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

@@ -1,9 +1,9 @@
 import io.javalin.http.Context
 import io.mockk.*
-import javalinvue.AuthController
-import javalinvue.User
-import javalinvue.UserController
+import javalinvue.*
 import org.jetbrains.exposed.sql.Database
+import org.jetbrains.exposed.sql.SchemaUtils
+import org.jetbrains.exposed.sql.transactions.transaction
 import org.junit.Before
 import org.junit.Test
 
@@ -15,6 +15,9 @@ class UserCreateTest {
     @Before
     fun setupTests(){
         Database.connect("jdbc:h2:./db", driver = "org.h2.Driver");
+        transaction {
+            SchemaUtils.create(Users, Tasks, Categories)
+        }
     }
 
 

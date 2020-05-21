@@ -5,6 +5,8 @@ import io.mockk.slot
 import io.mockk.verify
 import javalinvue.*
 import org.jetbrains.exposed.sql.Database
+import org.jetbrains.exposed.sql.SchemaUtils
+import org.jetbrains.exposed.sql.transactions.transaction
 import org.junit.Before
 import org.junit.Test
 
@@ -14,6 +16,9 @@ class TaskTest {
     @Before
     fun setupTests(){
         Database.connect("jdbc:h2:./db", driver = "org.h2.Driver");
+        transaction {
+            SchemaUtils.create(Users, Tasks, Categories)
+        }
     }
     private val ctx = mockk<Context>(relaxed = true)
 
