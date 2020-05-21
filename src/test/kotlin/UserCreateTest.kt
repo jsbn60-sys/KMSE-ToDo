@@ -1,7 +1,5 @@
 import io.javalin.http.Context
-import io.mockk.every
-import io.mockk.mockk
-import io.mockk.verify
+import io.mockk.*
 import javalinvue.AuthController
 import org.jetbrains.exposed.sql.Database
 import org.junit.Before
@@ -34,6 +32,15 @@ class UserCreateTest {
         every { ctx1.formParam("username") } returns "Mustermann"
         every { ctx1.formParam("password") } returns "1234"
         every { ctx1.formParam("email") } returns "max.mustermann@mni.thm.de"
+        val token = slot<String>()
+        every {
+            ctx1.json(
+                    capture(token)
+            )
+        } answers {
+            println("TOKEN: " + token.captured)
+            this.callOriginal()
+        }
         AuthController.register(ctx1)
         every { ctx2.formParam("username") } returns "Mustermann"
         every { ctx2.formParam("password") } returns "5678"
