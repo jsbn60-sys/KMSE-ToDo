@@ -94,6 +94,7 @@ object UserController {
                 this.owner = user
             }
             ctx.json("Ok")
+            ctx.status(200)
         }
     }
     fun markMyTaskDone(ctx: Context) {
