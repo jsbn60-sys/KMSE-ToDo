@@ -90,6 +90,7 @@ object AuthController {
             addDefaults(user)
             val token = createToken(user.id.value)
             ctx.json(token)
+            ctx.status(200)
         }
     }
 
