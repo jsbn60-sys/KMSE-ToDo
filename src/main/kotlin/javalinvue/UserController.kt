@@ -1,11 +1,9 @@
 package javalinvue
 
 import io.javalin.http.Context
-import org.jetbrains.exposed.sql.transactions.transaction
 import java.text.ParseException
 import java.text.SimpleDateFormat
-import java.util.*
-
+import org.jetbrains.exposed.sql.transactions.transaction
 
 object UserController {
     fun getUser(ctx: Context) {
@@ -70,10 +68,10 @@ object UserController {
         val title = ctx.formParam("title")
         val priority = ctx.formParam("priority")
         val planed = ctx.formParam("planed")
-        val planedParsed = try {dateFormat.parse(planed)} catch (_: ParseException) {null}
+        val planedParsed = try { dateFormat.parse(planed) } catch (_: ParseException) { null }
         val categoryID = ctx.formParam("category")
-        if (title == null || priority == null || !arrayOf("low", "medium", "high").contains(priority)
-                || planed == null || planedParsed == null || categoryID == null) {
+        if (title == null || priority == null || !arrayOf("low", "medium", "high").contains(priority) ||
+                planed == null || planedParsed == null || categoryID == null) {
             ctx.status(400)
             ctx.json("Bad Request")
             return

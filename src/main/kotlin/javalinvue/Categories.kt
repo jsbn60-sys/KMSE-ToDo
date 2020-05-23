@@ -5,7 +5,7 @@ import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.IntIdTable
 
-object Categories: IntIdTable() {
+object Categories : IntIdTable() {
     val name = varchar("name", 64)
     val owner = reference("owner", Users)
 }

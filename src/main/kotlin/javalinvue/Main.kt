@@ -13,7 +13,7 @@ enum class AppRole : Role { ANYONE, LOGGED_IN }
 
 fun main() {
 
-    Database.connect("jdbc:h2:./db", driver = "org.h2.Driver");
+    Database.connect("jdbc:h2:./db", driver = "org.h2.Driver")
 
     transaction {
         SchemaUtils.create(Users, Tasks, Categories)
@@ -43,7 +43,6 @@ fun main() {
     app.get("/tasks", VueComponent("<user-tasks></user-tasks>"), roles(AppRole.ANYONE))
     app.get("/new-task", VueComponent("<new-task></new-task>"), roles(AppRole.ANYONE))
     app.get("/new-category", VueComponent("<new-category></new-category>"), roles(AppRole.ANYONE))
-
 
     app.error(404, "html", VueComponent("<not-found></not-found>"))
 
