@@ -3,19 +3,18 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.slot
 import io.mockk.verify
-import javalinvue.*
+import javalinvue.* // ktlint-disable no-wildcard-imports
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.junit.Before
 import org.junit.Test
 
-
 class TaskTest {
 
     @Before
-    fun setupTests(){
-        Database.connect("jdbc:h2:./db", driver = "org.h2.Driver");
+    fun setupTests() {
+        Database.connect("jdbc:h2:./db", driver = "org.h2.Driver")
         transaction {
             SchemaUtils.create(Users, Tasks, Categories)
         }
@@ -23,7 +22,7 @@ class TaskTest {
     private val ctx = mockk<Context>(relaxed = true)
 
     @Test
-    fun createTask(){
+    fun createTask() {
 
         val user = registerAndLogin()
 
@@ -38,10 +37,9 @@ class TaskTest {
         deleteAcc(user)
     }
 
-
     // POST to create tasks without title throws for invalid task parameter
     @Test
-    fun createTaskWithoutValidTitle(){
+    fun createTaskWithoutValidTitle() {
         val user = registerAndLogin()
 
         every { ctx.attribute<User>("user") } returns user
@@ -50,14 +48,14 @@ class TaskTest {
         every { ctx.formParam("planed") } returns "15.05.2020"
         every { ctx.formParam("category") } returns "BS"
         UserController.addToMyTasks(ctx) // returns 400 StatusCode
-        verify{ctx.status(400)}
+        verify { ctx.status(400) }
 
         deleteAcc(user)
     }
 
     // POST to create tasks with invalid priority throws for invalid task parameter
     @Test
-    fun createTaskWithoutValidPriority(){
+    fun createTaskWithoutValidPriority() {
         val user = registerAndLogin()
 
         every { ctx.attribute<User>("user") } returns user
@@ -66,12 +64,12 @@ class TaskTest {
         every { ctx.formParam("planed") } returns "15.05.2020"
         every { ctx.formParam("category") } returns "BS"
         UserController.addToMyTasks(ctx) // returns 400 StatusCode
-        verify{ctx.status(400)}
+        verify { ctx.status(400) }
 
         deleteAcc(user)
     }
 
-    fun registerAndLogin():User?{
+    fun registerAndLogin(): User? {
         every { ctx.formParam("username") } returns "Mustermann"
         every { ctx.formParam("password") } returns "1234"
         every { ctx.formParam("email") } returns "max.mustermann@mni.thm.de"
@@ -90,16 +88,12 @@ class TaskTest {
         }
         AuthController.login(ctx)
 
-        every { ctx.queryParam("token")} returns token.captured
+        every { ctx.queryParam("token") } returns token.captured
         return AuthController.verify(ctx)
     }
 
-    fun deleteAcc(user: User?){
-        every { ctx.attribute<User>("user")} returns user
+    fun deleteAcc(user: User?) {
+        every { ctx.attribute<User>("user") } returns user
         UserController.deleteAccount(ctx)
     }
-
-
-
-
 }

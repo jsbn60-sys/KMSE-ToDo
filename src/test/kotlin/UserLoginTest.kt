@@ -1,19 +1,14 @@
 import io.javalin.http.Context
-import io.mockk.every
 import io.mockk.mockk
-import io.mockk.verify
-import javalinvue.AuthController
 import org.jetbrains.exposed.sql.Database
 import org.junit.Before
-import org.junit.Test
-
 
 class UserLoginTest {
     private val ctx = mockk<Context>(relaxed = true)
 
     @Before
-    fun setupTests(){
-        Database.connect("jdbc:h2:./db", driver = "org.h2.Driver");
+    fun setupTests() {
+        Database.connect("jdbc:h2:./db", driver = "org.h2.Driver")
     }
 
     /*
