@@ -4,9 +4,9 @@ import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import com.auth0.jwt.exceptions.JWTVerificationException
 import io.javalin.http.Context
+import java.util.Date
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.mindrot.jbcrypt.BCrypt
-import java.util.*
 
 object AuthController {
     private val jwtSecret = System.getenv("SECRET") ?: {
@@ -23,7 +23,7 @@ object AuthController {
             transaction {
                 User.findById(decoded.subject.toInt())
             }
-        } catch (exception: JWTVerificationException){
+        } catch (exception: JWTVerificationException) {
             null
         }
     }
@@ -58,7 +58,7 @@ object AuthController {
             val token = if (expiresIn == null) {
                 createToken(user.id.value)
             } else {
-                val expires = Date(Date().time + expiresIn.toInt()*1000)
+                val expires = Date(Date().time + expiresIn.toInt() * 1000)
                 createToken(user.id.value, expires)
             }
             ctx.json(token)
@@ -68,7 +68,7 @@ object AuthController {
     fun register(ctx: Context) {
         val username = ctx.formParam("username", null)
         val password = ctx.formParam("password", null)
-        val email    = ctx.formParam("email", null)
+        val email = ctx.formParam("email", null)
         if (username == null || password == null || email == null) {
             ctx.status(400)
             ctx.json("Bad Request")
